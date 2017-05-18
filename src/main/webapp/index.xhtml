@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Álbuns</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="css" name="estilo.css" />
+    </h:head>
+    <h:body>
+        <ui:composition template="template/template.xhtml">
+            <ui:define name="corpo">
+                <h:form id="formulario1">
+                    <div class="form-group col-md-12">
+                        <h4><strong>Criar um novo albúm</strong></h4>
+                        <h:outputLabel value="Nome:"/>
+                        <h:inputText class="form-control" id="nomeAlbum" value="#{albumController.album.nome}" required="true"/>
+                        <br/>
+                        <h:commandButton class="btn btn-primary col-md-2" id="criarAlbum" value="Criar Álbum" action="#{albumController.salvar()}" />
+                    </div>
+                    <h:messages errorClass="erro" infoClass="info"/>
+                </h:form>
+                <h:form id="formulario2">
+                    <div class="form-group col-md-12">
+                        <h:dataTable var="a" value="#{albumController.albuns}" class="table table-striped">
+                            <f:facet name="header">
+                                Álbuns
+                            </f:facet>
+                            <h:column>
+                                <f:facet name="header">Nome</f:facet>
+                                <h:outputText value="#{a.nome}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Data</f:facet>
+                                <h:outputText value="#{a.data}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Abrir</f:facet>
+                                <h:commandButton id="abrir" value="Abrir" action="#{fotoController.pegaAlbum(a)}" class="btn btn-success col-md-4"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Excluir</f:facet>
+                                <h:commandButton id="excluir" value="Excluir" action="#{albumController.remover(a)}" class="btn btn-danger col-md-4"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
